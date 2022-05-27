@@ -59,60 +59,13 @@ def _preprocess_data(data):
     # ---------------------------------------------------------------
 
     # ----------- Replace this code with your own preprocessing steps --------
-    feature_vector_df_2 = feature_vector_df.copy()
+    #feature_vector_df_2 = feature_vector_df.copy()
     # imputing the missing values
     feature_vector_df.fillna(feature_vector_df.mean().round(4), inplace=True)
     
-    # renaming the features
-    feature_vector_df.columns = ['id', 'date_time',"Madrid_wind_speed",'Valencia_wind_deg', "Bilbao_rain_1h", "Valencia_wind_speed", "Seville_humidity",
-    "Madrid_humidity", "Bilbao_clouds_all", "Bilbao_wind_speed", "Seville_clouds_all", "Bilbao_wind_deg",
-    "Barcelona_wind_speed", "Barcelona_wind_deg", "Madrid_clouds_all", "Seville_wind_speed",
-    "Barcelona_rain_1h",'Seville_pressure', "Seville_rain_1h", "Bilbao_snow_3h", "Barcelona_pressure", "Seville_rain_3h",
-    "Madrid_rain_1h", "Barcelona_rain_3h", "Valencia_snow_3h", "Madrid_weather_id", "Barcelona_weather_id",
-    "Bilbao_pressure", "Seville_weather_id", "Valencia_pressure", "Seville_temp_max", "Madrid_pressure",
-    "Valencia_temp_max", "Valencia_temp", "Bilbao_weather_id", "Seville_temp", "Valencia_humidity",
-    "Valencia_temp_min", "Barcelona_temp_max", "Madrid_temp_max", "Barcelona_temp", "Bilbao_temp_min",
-    "Bilbao_temp", "Barcelona_temp_min", "Bilbao_temp_max", "Seville_temp_min", "Madrid_temp", "Madrid_temp_min",
-    "load_shortfall_3h" ]
-
-    # droping the id feature
-    feature_vector_df.drop(columns=['id'])
-
-    # drop duplicates
-    feature_vector_df.drop_duplicates()
-
-    # replacing the outliers with the mean
-    feature_vector_df.loc[feature_vector_df['Barcelona_pressure'] > 2000 , 'Barcelona_pressure'] = np.NaN
-    feature_vector_df.fillna(feature_vector_df.mean().round(4), inplace=True)
-
-    # parsing the date_time
-    feature_vector_df['Year'] = pd.DatetimeIndex(feature_vector_df['date_time']).year
-    feature_vector_df['Month'] = pd.DatetimeIndex(feature_vector_df['date_time']).month
-    feature_vector_df['Day'] = pd.DatetimeIndex(feature_vector_df['date_time']).day
-    feature_vector_df['Hour'] = pd.DatetimeIndex(feature_vector_df['date_time']).hour
-
-    # dropping date_time column
-    feature_vector_df.drop('date_time', inplace=True, axis = 1)
-
-    # dropping the load_shortfall_3h to append it at the end
-    feature_vector_df.drop('load_shortfall_3h', inplace=True, axis = 1)
-
-    # dummy encoding
-    feature_vector_df['Valencia_wind_deg1'] = feature_vector_df.Valencia_wind_deg.str.split('_').str[1]
-
-    # dropping the alphanumeric Valencia_wind_deg
-    feature_vector_df.drop('Valencia_wind_deg', inplace=True, axis = 1)
-
-    # splitting the Seville_pressure at extracting the numerals
-    feature_vector_df['Seville_pressure1'] = feature_vector_df.Seville_pressure.str.extractall('([a-zA-Z]+)([0-9]+)').unstack()[1]
-
-    # dropping the alphanumeric Seville_pressure
+    feature_vector_df.drop('time', inplace=True, axis = 1)
     feature_vector_df.drop('Seville_pressure', inplace=True, axis = 1)
-
-    # appending load_shortfall_3h at the end
-    feature_vector_df['load_shortfall_3h'] = feature_vector_df_2['load_shortfall_3h']
-
-    feature_vector_df.drop(columns=['id'])
+    feature_vector_df.drop('Valencia_wind_deg', inplace=True, axis = 1)
 
     predict_vector = feature_vector_df
 
