@@ -66,6 +66,7 @@ def _preprocess_data(data):
     feature_vector_df.drop('time', inplace=True, axis = 1)
     feature_vector_df.drop('Seville_pressure', inplace=True, axis = 1)
     feature_vector_df.drop('Valencia_wind_deg', inplace=True, axis = 1)
+    feature_vector_df.drop('load_shortfall_3h', inplace=True, axis = 1)
 
     predict_vector = feature_vector_df
 
