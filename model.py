@@ -61,14 +61,7 @@ def _preprocess_data(data):
     # ----------- Replace this code with your own preprocessing steps --------
     #feature_vector_df_2 = feature_vector_df.copy()
     # imputing the missing values
-    feature_vector_df.fillna(feature_vector_df.mean().round(4), inplace=True)
-    
-    feature_vector_df.drop('time', inplace=True, axis = 1)
-    feature_vector_df.drop('Seville_pressure', inplace=True, axis = 1)
-    feature_vector_df.drop('Valencia_wind_deg', inplace=True, axis = 1)
-    feature_vector_df.drop('load_shortfall_3h', inplace=True, axis = 1)
-
-    predict_vector = feature_vector_df
+    predict_vector = feature_vector_df[['Madrid_wind_speed','Bilbao_rain_1h','Valencia_wind_speed']]
 
     return predict_vector
 
