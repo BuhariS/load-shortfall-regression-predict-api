@@ -112,7 +112,7 @@ def _preprocess_data(data):
     # appending load_shortfall_3h at the end
     feature_vector_df['load_shortfall_3h'] = feature_vector_df_2['load_shortfall_3h']
 
-
+    feature_vector_df.drop(columns=['id'])
 
     predict_vector = feature_vector_df
 
